@@ -1,0 +1,46 @@
+{% extends "blog/base.html" %}
+{% load hitcount_tags %}
+{% block content %}
+
+<h1 class="text-center">About Team</h1>
+<div class="container card m-2 p-5 shadow">
+<div class="row text-center">
+            <div class="col-md-5 m-2"><img class="rounded-circle" style="width:120px;" src="https://pbs.twimg.com/media/DgTvRmxU8AEXplc.jpg"><h5>Vinay Sudrik</h5></div>
+            <div class="col-md-5 m-2"><img class="rounded-circle" style="width:120px;" src="https://qph.fs.quoracdn.net/main-raw-217979706-knouwbcozzpbxuesnfkjxyutysnyogyd.jpeg"><h5>Rushikesh Kardile</h5></div>
+        
+            <div class="col-md-5 m-2"><img class="rounded-circle" style="width:120px;" src="../media/default.jpg"><h5>Amogh Mardekar</h5></div>
+            <div class="col-md-5 m-2"><img class="rounded-circle" style="width:120px;" src="../media/default.jpg"><h5>Shivshankar Paswan</h5></div>
+            
+    </div>
+</div>
+
+<!--{% for post in posts %}
+<div class = "container">
+    {{ post.title }}
+</div>
+{% endfor %}-->
+
+<div id="container1" style="min-width: 240px; height: 400px; margin: 0 auto" class="border"></div>
+  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+  
+
+
+  <script>
+    Highcharts.chart('container1', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Historic World Population by Region'
+        },
+        xAxis: {
+            categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
+        },
+        series: [{
+            name: 'Users',
+            data: [107, 31, 635, 203, 222]
+        },]
+    });
+  </script>
+
+{% endblock content %}
