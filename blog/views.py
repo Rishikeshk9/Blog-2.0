@@ -9,6 +9,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.contenttypes.models import ContentType
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, RedirectView, View
 import random
+from hitcount.models import HitCount, HitCountMixin
 from .models import Post
 
 def home(request):
@@ -119,16 +120,29 @@ class ChartData(APIView):
     def get(self, request, format1=None):
         qs_count = User.objects.all().count()
         labels = [user.username for user in User.objects.all()]
+        labels2 = [post.title for post in Post.objects.all()]
         default_items = [Post.objects.filter(author=user).count() for user in User.objects.all()]
-        colors=[]
+        colors = []
+        colors2 = []
+        allhits = []
         for user in User.objects.all():
             color ='rgba('+format(random.randint(0,255))+","+format(random.randint(0,255))+","+format(random.randint(0,255))+",1)"
             colors.append(color)
-        #color = 'rgba('+format(random.randint(0,255))+","+format(random.randint(0,255))+","+format(random.randint(0,255))+",1)"
+        for post in Post.objects.all():
+            hit9 = HitCount.objects.get(object_pk = post.pk)
+            noofhits = hit9.hits
+            allhits.append(noofhits)
+        for post in Post.objects.all():
+            color ='rgba('+format(random.randint(0,255))+","+format(random.randint(0,255))+","+format(random.randint(0,255))+",1)"
+            colors2.append(color)
         data = {
                  "labels": labels,
                  "default": default_items,
                  "bgcolor": colors,
+                 "labels2": labels2,
+                 "bgcolor2": colors2,
+                 "defaultviews": allhits,
+
                 }
         ##usernames = [user.username for user in User.objects.all()]
         return Response(data)
